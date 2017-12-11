@@ -13,22 +13,25 @@ let redisClient = redis.createClient({
 });
 
 /**
- * 判断秒杀是否开始
- */
-async function check() {
-
-}
-
-/**
  * 初始化购买系统
  */
 async function init() {
+  //初始化商品状态
+  await redisClient.hmset('goods_status', {
+    goodsId_count: 100,
+    goodsId_start: 0,
+    goodsId_access: 0
+  })
+  //
+  await redisClient.hmset('goodsId', {
+    total: 100,
+    booked: 100
+  })
   
-}
 
-/**
- * 获得购买资格
- */
-async function buy() {
 
 }
+
+co(async function() {
+  await init();
+})
